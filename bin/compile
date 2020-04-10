@@ -1,0 +1,20 @@
+#!/bin/sh
+set -eu
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+BP_DIR="$(cd "$(dirname "$0")" && pwd)"
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+echo -n "-----> Installing ngrok... "
+curl --silent -o ngrok.zip -L "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip" | indent
+unzip ngrok.zip -d $BUILD_DIR/bin > /dev/null 2>&1
+echo "done"
+
+MC_VERSION="${MC_VERSION:-1.15.2}"
+echo -n "-----> Installing server version:${MC_VERSION}... "
+curl --silent -o $BUILD_DIR/server.jar "https://s3.amazonaws.com/Minecraft.Download/versions/${MC_VERSION}/minecraft_server.${MC_VERSION}.jar" | indent
+echo "done"

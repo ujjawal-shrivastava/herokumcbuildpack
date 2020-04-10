@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cat <<EOF
+---
+default_process_types:
+  worker: bash bin/minecraft.sh
+EOF
